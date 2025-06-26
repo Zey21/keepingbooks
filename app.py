@@ -8,7 +8,7 @@ import pandas as pd  # Import pandas
 def create_connection():
     conn = None
     try:
-        conn = sqlite3.connect('bookkeeping.db', check_same_thread=False)
+        conn = sqlite3.connect('bookkeeping.db') #check_same_thread=False
     except Error as e:
         st.error(f"Error connecting to database: {e}")
     return conn
@@ -17,28 +17,28 @@ conn = create_connection()
 c = conn.cursor()
 
 # Create tables
-c.execute('''
-CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE NOT NULL,
-    name TEXT NOT NULL,
-    password TEXT NOT NULL
-)
-''')
+#c.execute('''
+#CREATE TABLE IF NOT EXISTS users (
+#    id INTEGER PRIMARY KEY AUTOINCREMENT,
+#    username TEXT UNIQUE NOT NULL,
+#    name TEXT NOT NULL,
+#    password TEXT NOT NULL
+#)
+#''')
 
-c.execute('''
-CREATE TABLE IF NOT EXISTS records (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER NOT NULL,
-    name TEXT NOT NULL,
-    date TEXT NOT NULL,
-    description TEXT NOT NULL,
-    amount REAL NOT NULL,
-    type TEXT NOT NULL CHECK(type IN ('income', 'expense')),
-    FOREIGN KEY (user_id) REFERENCES users (id)
-)
-''')
-conn.commit()
+#c.execute('''
+#CREATE TABLE IF NOT EXISTS records (
+#    id INTEGER PRIMARY KEY AUTOINCREMENT,
+#    user_id INTEGER NOT NULL,
+#    name TEXT NOT NULL,
+#    date TEXT NOT NULL,
+#    description TEXT NOT NULL,
+#    amount REAL NOT NULL,
+#    type TEXT NOT NULL CHECK(type IN ('income', 'expense')),
+#    FOREIGN KEY (user_id) REFERENCES users (id)
+#)
+#''')
+#conn.commit()
 
 # Password hashing
 def hash_password(password):
