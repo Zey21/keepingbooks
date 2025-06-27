@@ -16,29 +16,6 @@ def create_connection():
 conn = create_connection()
 c = conn.cursor()
 
-# Create tables
-#c.execute('''
-#CREATE TABLE IF NOT EXISTS users (
-#    id INTEGER PRIMARY KEY AUTOINCREMENT,
-#    username TEXT UNIQUE NOT NULL,
-#    name TEXT NOT NULL,
-#    password TEXT NOT NULL
-#)
-#''')
-
-#c.execute('''
-#CREATE TABLE IF NOT EXISTS records (
-#    id INTEGER PRIMARY KEY AUTOINCREMENT,
-#    user_id INTEGER NOT NULL,
-#    name TEXT NOT NULL,
-#    date TEXT NOT NULL,
-#    description TEXT NOT NULL,
-#    amount REAL NOT NULL,
-#    type TEXT NOT NULL CHECK(type IN ('income', 'expense')),
-#    FOREIGN KEY (user_id) REFERENCES users (id)
-#)
-#''')
-#conn.commit()
 
 # Password hashing
 def hash_password(password):
@@ -153,35 +130,6 @@ else:
                     st.success("Record added successfully")
                     st.rerun()
 
-    # # Display records
-    # records = get_records(user_id)
-    # if records:
-    #     for record in records:
-    #         rec_id, rec_date, rec_desc, rec_amount, rec_type = record
-    #         with st.expander(f"{rec_date} - {rec_desc} ({rec_type.capitalize()}) - ${rec_amount:.2f}"):
-    #             with st.form(f"edit_form_{rec_id}"):
-    #                 new_date = st.date_input("Date", value=st.session_state.get(f"date_{rec_id}", rec_date))
-    #                 new_desc = st.text_input("Description", value=st.session_state.get(f"desc_{rec_id}", rec_desc))
-    #                 new_amount = st.number_input("Amount", min_value=0.0, format="%.2f", value=rec_amount)
-    #                 new_type = st.selectbox("Type", ["income", "expense"], index=0 if rec_type=="income" else 1)
-    #                 update_btn = st.form_submit_button("Update")
-    #                 delete_btn = st.form_submit_button("Delete")
-    #                 if update_btn:
-    #                     if new_desc.strip() == "":
-    #                         st.error("Description cannot be empty")
-    #                     else:
-    #                         update_record(rec_id, new_date.isoformat(), new_desc, new_amount, new_type)
-    #                         st.success("Record updated successfully")
-    #                         st.rerun()
-    #                 if delete_btn:
-    #                     delete_record(rec_id)
-    #                     st.success("Record deleted successfully")
-    #                     st.rerun()
-    #                 st.session_state[f"date_{rec_id}"] = new_date
-    #                 st.session_state[f"desc_{rec_id}"] = new_desc
-    # else:
-    #     st.info("No records found. Add your first record above.")
-    
     # Display records    
     records = get_records(user_id)
     records_all = get_records_all()
