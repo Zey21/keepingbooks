@@ -8,14 +8,13 @@ import pandas as pd  # Import pandas
 def create_connection():
     conn = None
     try:
-        conn = sqlite3.connect('bookkeeping.db') #check_same_thread=False
+        conn = sqlite3.connect('database.db', check_same_thread=False)
     except Error as e:
         st.error(f"Error connecting to database: {e}")
     return conn
 
 conn = create_connection()
 c = conn.cursor()
-
 
 # Password hashing
 def hash_password(password):
@@ -130,6 +129,8 @@ else:
                     st.success("Record added successfully")
                     st.rerun()
 
+    
+    
     # Display records    
     records = get_records(user_id)
     records_all = get_records_all()
